@@ -2,9 +2,10 @@
 
 import altair as alt
 import numpy as np
+import pandas as pd
 import requests
 import streamlit as st
-import pandas as pd
+from PIL import Image
 
 #%%
 
@@ -16,6 +17,18 @@ def get_data(screen_name):
         "X-RapidAPI-Key": st.secrets["key"],
     }
     return requests.request("GET", url, headers=headers).json()
+
+
+#%% data for plotting
+
+partydata = pd.DataFrame(
+    {
+        "party": ["Democrat", "Republican"],
+        "value": [-1, 1],
+        "label": ["", ""],
+        "score": [0.0, 0.0],
+    }
+)
 
 
 #%%
@@ -55,7 +68,49 @@ if screen_name:
         )
         columns[2].metric("Partisanship", value=data["partisan_score"], delta="1.2%")
 
+        #%% figures
+
         st.write("add figures below")
+
+        # partisanship
+        st.markdown(
+            "<h5 style='text-align: center;'>Partisanship</h1>",
+            unsafe_allow_html=True,
+        )
+        col1, col2, col3 = st.columns([1, 2, 1])
+        partydata["score"] = data["partisan_score"]
+        bar = (
+            alt.Chart(partydata)
+            .mark_bar()
+            .encode(
+                x=alt.X("value", title="Democratic - Republican"),
+                y=alt.Y("label", title=""),
+                color=alt.Color(
+                    field="party",
+                    scale=alt.Scale(range=["#234898", "#d22532"], interpolate="hsl"),
+                    legend=None,
+                ),
+            )
+            # .properties(title="Partisanship")
+        )
+
+        tick = (
+            alt.Chart(partydata)
+            .mark_tick(
+                color="orange",
+                thickness=4,
+                size=34,
+            )
+            .encode(x="score", y="label", tooltip=["score"])
+            .interactive()
+        )
+        plot_party = bar + tick
+        plot_party.configure_title(fontSize=13)
+
+        # img_dem = Image.open("img/dem_repub.png")
+        # col2.image(img_dem, use_column_width=True)
+        col2.altair_chart(plot_party, use_container_width=True)
+
         source = pd.DataFrame({"category": [1, 2], "value": [1, 2]})
         c1 = (
             alt.Chart(source)
