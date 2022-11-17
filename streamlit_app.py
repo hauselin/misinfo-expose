@@ -118,8 +118,8 @@ if screen_name:
         plot_party = bar + tick
         plot_party.configure_title(fontSize=13)
 
-        # img_dem = Image.open("img/dem_repub.png")
-        # col2.image(img_dem, use_column_width=True)
+        img_dem = Image.open("img/dem.png")
+        col1.image(img_dem, use_column_width=True)
         col2.altair_chart(plot_party, use_container_width=True)
 
         # misinfo exposure
