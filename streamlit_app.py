@@ -89,7 +89,7 @@ if screen_name:
             unsafe_allow_html=True,
         )
 
-        col1, col2, col3 = st.columns([1, 2, 1])
+        col1, col2, col3 = st.columns([1, 6, 1])
         partydata["score"] = data["partisan_score"]
         bar = (
             alt.Chart(partydata)
@@ -130,7 +130,7 @@ if screen_name:
             unsafe_allow_html=True,
         )
 
-        col1, col2, col3 = st.columns([1, 2, 1])
+        col1, col2, col3 = st.columns([1, 6, 1])
         misinfodata["score"] = data["misinfo_exposure_score"]
         bar = (
             alt.Chart(misinfodata)
