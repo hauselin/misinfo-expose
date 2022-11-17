@@ -78,7 +78,7 @@ st.set_page_config(page_title="Misinformation exposure")
 st.markdown("### How much misinformation are you exposed to?")
 
 st.markdown(
-    "Citation: *Measuring exposure to misinformation from political elites on Twitter. Mosleh, M., & Rand, D.G., Nature Communications, 2022.*"
+    "Citation: *Measuring exposure to misinformation from political elites on Twitter. Mosleh, M. & Rand, D.G., Nature Communications, 2022.*"
 )
 
 st.markdown(
