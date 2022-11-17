@@ -39,6 +39,10 @@ st.markdown("### How much misinformation are you exposed to?")
 
 st.write("Mohsen Mosleh. App information and add citation etc.")
 
+st.write(
+    "Measuring exposure to misinformation from political elites on Twitter Mosleh, M, Rand G. R, Nature Communications 2022"
+)
+
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
 
 #%%
