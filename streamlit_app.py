@@ -5,6 +5,9 @@ import pandas as pd
 import requests
 import streamlit as st
 from PIL import Image
+import base64
+from pathlib import Path
+
 
 #%%
 
@@ -16,6 +19,18 @@ def get_data(screen_name):
         "X-RapidAPI-Key": st.secrets["key"],
     }
     return requests.request("GET", url, headers=headers).json()
+
+
+# https://stackoverflow.com/questions/70932538/how-to-center-the-title-and-an-image-in-streamlit
+def img_to_bytes(img_path):
+    img_bytes = Path(img_path).read_bytes()
+    return base64.b64encode(img_bytes).decode()
+
+
+def img_to_html(img_path):
+    return (
+        f"<img src='data:image/png;base64,{img_to_bytes(img_path)}' class='img-fluid'>"
+    )
 
 
 #%% data for plotting
@@ -70,59 +85,19 @@ if screen_name:
         )
 
         columns = st.columns(3)
-        columns[0].metric("Partisanship", value=data["partisan_score"], delta="1.2%")
-        columns[1].metric(
+        columns[0].metric(
             "Exposure", value=data["misinfo_exposure_score"], delta="1.2%"
         )
-        columns[2].metric(
+        columns[1].metric(
             "Weighted exposure",
             value=data["misinfo_exposure_score_weighted_numtweets"],
             delta="-1.2%",
         )
+        columns[2].metric("Partisanship", value=data["partisan_score"], delta="1.2%")
 
         #%% figures
 
-        # partisanship
-        st.markdown(
-            "<h5 style='text-align: center;'>Partisanship</h1>",
-            unsafe_allow_html=True,
-        )
-
-        col1, col2, col3 = st.columns([1, 6, 1])
-        partydata["score"] = data["partisan_score"]
-        bar = (
-            alt.Chart(partydata)
-            .mark_bar()
-            .encode(
-                x=alt.X("value", title="Democratic - Republican"),
-                y=alt.Y("label", title=""),
-                color=alt.Color(
-                    field="party",
-                    scale=alt.Scale(range=["#34459d", "#f50e02"], interpolate="hsl"),
-                    legend=None,
-                ),
-            )
-            # .properties(title="Partisanship")
-        )
-
-        tick = (
-            alt.Chart(partydata)
-            .mark_tick(
-                color="orange",
-                thickness=4,
-                size=34,
-            )
-            .encode(x="score", y="label", tooltip=["score"])
-        )
-        plot_party = bar + tick
-        plot_party.configure_title(fontSize=13)
-
-        img_dem = Image.open("img/dem.png")
-        col1.image(img_dem, use_column_width=True)
-        img_rep = Image.open("img/repub.png")
-        col3.image(img_rep, use_column_width=True)
-
-        col2.altair_chart(plot_party, use_container_width=True)
+        st.markdown("# ")
 
         # misinfo exposure
         st.markdown(
@@ -174,6 +149,49 @@ if screen_name:
         # img_dem = Image.open("img/dem_repub.png")
         # col2.image(img_dem, use_column_width=True)
         col2.altair_chart(plot_misinfoexpose, use_container_width=True)
+
+        # partisanship
+        st.markdown(
+            "<h5 style='text-align: center;'>Partisanship</h1>",
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            "<p style='text-align: center; color: grey;'>"
+            + img_to_html("img/dem_repub_small.png")
+            + "</p>",
+            unsafe_allow_html=True,
+        )
+
+        col1, col2, col3 = st.columns([1, 6, 1])
+        partydata["score"] = data["partisan_score"]
+        bar = (
+            alt.Chart(partydata)
+            .mark_bar()
+            .encode(
+                x=alt.X("value", title="Democratic - Republican"),
+                y=alt.Y("label", title=""),
+                color=alt.Color(
+                    field="party",
+                    scale=alt.Scale(range=["#34459d", "#f50e02"], interpolate="hsl"),
+                    legend=None,
+                ),
+            )
+            # .properties(title="Partisanship")
+        )
+
+        tick = (
+            alt.Chart(partydata)
+            .mark_tick(
+                color="orange",
+                thickness=4,
+                size=34,
+            )
+            .encode(x="score", y="label", tooltip=["score"])
+        )
+        plot_party = bar + tick
+        plot_party.configure_title(fontSize=13)
+        col2.altair_chart(plot_party, use_container_width=True)
 
         st.markdown(
             f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows:"
