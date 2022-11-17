@@ -24,7 +24,7 @@ st.set_page_config(page_title="Misinformation exposure")
 
 st.markdown("### How much misinformation are you exposed to?")
 
-st.write("Details/info about the app here")
+st.write("Mohsen Mosleh. App information and add citation etc.")
 
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
 
