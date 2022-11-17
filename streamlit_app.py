@@ -30,6 +30,15 @@ partydata = pd.DataFrame(
     }
 )
 
+misinfodata = pd.DataFrame(
+    {
+        "exposure": ["low", "high"],
+        "value": [0, 1],
+        "label": ["", ""],
+        "score": [0.5, 0.5],
+    }
+)
+
 
 #%%
 
@@ -62,25 +71,24 @@ if screen_name:
         )
 
         columns = st.columns(3)
-        columns[0].metric(
+        columns[0].metric("Partisanship", value=data["partisan_score"], delta="1.2%")
+        columns[1].metric(
             "Exposure", value=data["misinfo_exposure_score"], delta="1.2%"
         )
-        columns[1].metric(
+        columns[2].metric(
             "Weighted exposure",
             value=data["misinfo_exposure_score_weighted_numtweets"],
             delta="-1.2%",
         )
-        columns[2].metric("Partisanship", value=data["partisan_score"], delta="1.2%")
 
         #%% figures
-
-        st.write("add figures below")
 
         # partisanship
         st.markdown(
             "<h5 style='text-align: center;'>Partisanship</h1>",
             unsafe_allow_html=True,
         )
+
         col1, col2, col3 = st.columns([1, 2, 1])
         partydata["score"] = data["partisan_score"]
         bar = (
@@ -115,21 +123,58 @@ if screen_name:
         # col2.image(img_dem, use_column_width=True)
         col2.altair_chart(plot_party, use_container_width=True)
 
-        source = pd.DataFrame({"category": [1, 2], "value": [1, 2]})
-        c1 = (
-            alt.Chart(source)
-            .mark_arc(outerRadius=100)
+        # misinfo exposure
+        st.markdown(
+            "<h5 style='text-align: center;'>Exposure to misinformation</h1>",
+            unsafe_allow_html=True,
+        )
+
+        col1, col2, col3 = st.columns([1, 2, 1])
+        misinfodata["score"] = data["misinfo_exposure_score"]
+        bar = (
+            alt.Chart(misinfodata)
+            .mark_bar()
             .encode(
-                theta=alt.Theta(field="value", type="quantitative"),
+                x=alt.X("value", title="Low - High"),
+                y=alt.Y("label", title=""),
                 color=alt.Color(
-                    field="category",
-                    type="nominal",
-                    scale=alt.Scale(range=["#09ab3b", "#ff4141"]),
+                    field="exposure",
                     legend=None,
                 ),
             )
         )
-        st.altair_chart(c1, use_container_width=True)
+
+        tick = (
+            alt.Chart(misinfodata)
+            .mark_tick(
+                color="orange",
+                thickness=2,
+                size=34,
+            )
+            .encode(x="score", y="label", tooltip=["score"])
+            .interactive()
+        )
+
+        misinfodata["score_weighted"] = data[
+            "misinfo_exposure_score_weighted_numtweets"
+        ]
+        tick_weight = (
+            alt.Chart(misinfodata)
+            .mark_tick(
+                color="white",
+                thickness=2,
+                size=34,
+            )
+            .encode(x="score_weighted", y="label", tooltip=["score"])
+            .interactive()
+        )
+
+        plot_misinfoexpose = bar + tick + tick_weight
+        plot_misinfoexpose.configure_title(fontSize=13)
+
+        # img_dem = Image.open("img/dem_repub.png")
+        # col2.image(img_dem, use_column_width=True)
+        col2.altair_chart(plot_misinfoexpose, use_container_width=True)
 
         st.markdown(
             f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows:"
