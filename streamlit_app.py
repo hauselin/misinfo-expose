@@ -20,14 +20,14 @@ def get_data(screen_name):
 st.title("Misinformation exposure")
 st.write("How much misinformation are you exposed to?")
 
-screen_name = None
-with st.sidebar:
-    screen_name = st.text_input("Enter your Twitter handle")
+screen_name = st.text_input("Enter your Twitter username or ID")
 
 #%%
 
 if screen_name:
     data = get_data(screen_name).json()
+
+    st.write("Username and ID", data["twitter_user_id"])
     st.write(data)
 
 #%%
