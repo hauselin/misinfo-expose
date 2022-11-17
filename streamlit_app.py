@@ -1,13 +1,13 @@
 #%%
 
-import altair as alt
-import pandas as pd
-import requests
-import streamlit as st
-from PIL import Image
 import base64
 from pathlib import Path
 
+import altair as alt
+import numpy as np
+import pandas as pd
+import requests
+import streamlit as st
 
 #%%
 
@@ -30,6 +30,23 @@ def img_to_bytes(img_path):
 def img_to_html(img_path):
     return (
         f"<img src='data:image/png;base64,{img_to_bytes(img_path)}' class='img-fluid'>"
+    )
+
+
+def percent_delta(misinfo, partisan):
+    misinfo = np.float_(misinfo)
+    partisan = np.float_(partisan)
+    misinfo_mean = 0.51
+    partisan_mean = -0.352 + 1  # rescale to [0, 1], original was [-1, 1]
+    follower_mean = 4.65
+
+    partisan += 1
+
+    misinfo_delta = misinfo - misinfo_mean
+    partisan_delta = partisan - partisan_mean
+
+    return np.round(misinfo_delta / misinfo_mean * 100, 2), np.round(
+        partisan_delta / partisan_mean * 100, 2
     )
 
 
@@ -60,10 +77,12 @@ st.set_page_config(page_title="Misinformation exposure")
 
 st.markdown("### How much misinformation are you exposed to?")
 
-st.write("Mohsen Mosleh. App information and add citation etc.")
+st.markdown(
+    "Citation: *Measuring exposure to misinformation from political elites on Twitter. Mosleh, M., & Rand, G.R., Nature Communications, 2022.*"
+)
 
-st.write(
-    "Measuring exposure to misinformation from political elites on Twitter Mosleh, M, Rand G. R, Nature Communications 2022"
+st.markdown(
+    "**Misinformation exposure** scores range from 0 (not exposed to any misinformation) to 1 (exposed to a lot of misinformation). **Partisanship** scores range from -1 (follow mostly Democrats) to 1 (follow mostly Republicans)."
 )
 
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
@@ -81,19 +100,39 @@ if screen_name:
         st.warning("Cannot find user. Please check your username or ID.")
     else:
         st.markdown(
-            f"You entered **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']})."
+            f"Scores **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below. How much (%) you deviate from the mean is also shown."
         )
 
+        st.markdown("#### ")
+
+        percent_delta_misinfo, percent_delta_partisan = percent_delta(
+            data["misinfo_exposure_score"], data["partisan_score"]
+        )
+
+        delta = (
+            None if np.isnan(percent_delta_partisan) else f"{percent_delta_misinfo}%"
+        )
         columns = st.columns(3)
         columns[0].metric(
-            "Exposure", value=data["misinfo_exposure_score"], delta="1.2%"
+            "Exposure",
+            value=data["misinfo_exposure_score"],
+            delta=delta,
+            help="Misinformation exposure score (min/max: 0/1)",
         )
         columns[1].metric(
             "Weighted exposure",
             value=data["misinfo_exposure_score_weighted_numtweets"],
-            delta="-1.2%",
+            help="Misinformation exposure score weighted by number of tweets (min/max: 0/1)",
         )
-        columns[2].metric("Partisanship", value=data["partisan_score"], delta="1.2%")
+        delta = (
+            None if np.isnan(percent_delta_partisan) else f"{percent_delta_partisan}%"
+        )
+        columns[2].metric(
+            "Partisanship",
+            value=data["partisan_score"],
+            delta=delta,
+            help="Higher scores: more Republican (min/max: -1/1)",
+        )
 
         #%% figures
 
@@ -124,7 +163,7 @@ if screen_name:
             alt.Chart(misinfodata)
             .mark_tick(
                 color="orange",
-                thickness=2,
+                thickness=3,
                 size=34,
             )
             .encode(x="score", y="label", tooltip=["score"])
@@ -136,7 +175,7 @@ if screen_name:
         tick_weight = (
             alt.Chart(misinfodata)
             .mark_tick(
-                color="white",
+                color="yellow",
                 thickness=2,
                 size=34,
             )
@@ -183,8 +222,8 @@ if screen_name:
         tick = (
             alt.Chart(partydata)
             .mark_tick(
-                color="orange",
-                thickness=4,
+                color="yellow",
+                thickness=5,
                 size=34,
             )
             .encode(x="score", y="label", tooltip=["score"])
