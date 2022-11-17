@@ -13,22 +13,28 @@ def get_data(screen_name):
         "X-RapidAPI-Host": st.secrets["host"],
         "X-RapidAPI-Key": st.secrets["key"],
     }
-    return requests.request("GET", url, headers=headers)
+    return requests.request("GET", url, headers=headers).json()
 
 
 #%%
 
 st.markdown("### How much misinformation are you exposed to?")
 
+st.write("Details/info about the app")
+
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
 
 #%%
 
 if screen_name:
-    data = get_data(screen_name).json()
+    if screen_name[0] == "@":
+        screen_name = screen_name[1:]
+
+    with st.spinner("Retrieving data..."):
+        data = get_data(screen_name)
 
     if data.get("message") and data["message"].startswith("Cannot find information"):
-        st.write("Cannot find user. Please check your username or ID.")
+        st.warning("Cannot find user. Please check your username or ID.")
     else:
         st.markdown(
             f"You entered **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']})."
@@ -49,5 +55,3 @@ if screen_name:
         st.json(data["following"])
 
     # st.write(data)
-
-#%%
