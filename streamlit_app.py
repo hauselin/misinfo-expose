@@ -11,7 +11,7 @@ from PIL import Image
 
 
 def get_data(screen_name):
-    url = f"https://mescalc.p.rapidapi.com/account/{screen_name}"
+    url = f"https://mescalc.p.rapidapi.com/account/{screen_name.lower()}"
     headers = {
         "X-RapidAPI-Host": st.secrets["host"],
         "X-RapidAPI-Key": st.secrets["key"],
@@ -99,7 +99,7 @@ if screen_name:
                 y=alt.Y("label", title=""),
                 color=alt.Color(
                     field="party",
-                    scale=alt.Scale(range=["#234898", "#d22532"], interpolate="hsl"),
+                    scale=alt.Scale(range=["#34459d", "#f50e02"], interpolate="hsl"),
                     legend=None,
                 ),
             )
