@@ -41,7 +41,6 @@ def percent_delta(misinfo, partisan):
     follower_mean = 4.65
 
     partisan += 1
-
     misinfo_delta = misinfo - misinfo_mean
     partisan_delta = partisan - partisan_mean
 
@@ -99,6 +98,7 @@ if screen_name:
     if data.get("message") and data["message"].startswith("Cannot find information"):
         st.warning("Cannot find user. Please check your username or ID.")
     else:
+        print(data)
         st.markdown(
             f"Scores for **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below. You can also see how much (%) the scores deviate from the mean. The vertical lines in the figures show your scores."
         )
@@ -109,9 +109,7 @@ if screen_name:
             data["misinfo_exposure_score"], data["partisan_score"]
         )
 
-        delta = (
-            None if np.isnan(percent_delta_partisan) else f"{percent_delta_misinfo}%"
-        )
+        delta = None if np.isnan(percent_delta_misinfo) else f"{percent_delta_misinfo}%"
         columns = st.columns(3)
         columns[0].metric(
             "Exposure",
