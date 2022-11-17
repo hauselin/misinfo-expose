@@ -100,7 +100,7 @@ if screen_name:
         st.warning("Cannot find user. Please check your username or ID.")
     else:
         st.markdown(
-            f"Scores **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below. You can also see how much (%) the scores deviate from the mean. The vertical lines in the figures show your scores."
+            f"Scores for **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below. You can also see how much (%) the scores deviate from the mean. The vertical lines in the figures show your scores."
         )
 
         st.markdown("#### ")
