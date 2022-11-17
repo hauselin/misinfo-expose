@@ -78,7 +78,7 @@ st.set_page_config(page_title="Misinformation exposure")
 st.markdown("### How much misinformation are you exposed to?")
 
 st.markdown(
-    "Citation: *Measuring exposure to misinformation from political elites on Twitter. Mosleh, M., & Rand, G.R., Nature Communications, 2022.*"
+    "Citation: *Measuring exposure to misinformation from political elites on Twitter. Mosleh, M., & Rand, D.G., Nature Communications, 2022.*"
 )
 
 st.markdown(
@@ -100,7 +100,7 @@ if screen_name:
         st.warning("Cannot find user. Please check your username or ID.")
     else:
         st.markdown(
-            f"Scores **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below. How much (%) you deviate from the mean is also shown."
+            f"Scores **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below. You can also see how much (%) the scores deviate from the mean. The vertical lines in the figures show your scores."
         )
 
         st.markdown("#### ")
