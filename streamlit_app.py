@@ -2,6 +2,7 @@
 
 import requests
 import streamlit as st
+import json
 
 #%%
 
@@ -28,6 +29,11 @@ with st.sidebar:
 
 if screen_name:
     data = get_data(screen_name).json()
-    st.write(data)
+    if "Cannot find information" in json.dumps(data):
+        st.write(
+            "There is not enough data about this twitter handle to generate a misinformation exposure score!"
+        )
+    else:
+        st.write(data)
 
 #%%
