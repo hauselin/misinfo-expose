@@ -165,7 +165,7 @@ if screen_name:
                 thickness=2,
                 size=34,
             )
-            .encode(x="score_weighted", y="label", tooltip=["score"])
+            .encode(x="score_weighted", y="label", tooltip=["score_weighted"])
             .interactive()
         )
 
