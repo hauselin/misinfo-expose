@@ -114,7 +114,6 @@ if screen_name:
                 size=34,
             )
             .encode(x="score", y="label", tooltip=["score"])
-            .interactive()
         )
         plot_party = bar + tick
         plot_party.configure_title(fontSize=13)
@@ -152,7 +151,6 @@ if screen_name:
                 size=34,
             )
             .encode(x="score", y="label", tooltip=["score"])
-            .interactive()
         )
 
         misinfodata["score_weighted"] = data[
@@ -166,7 +164,6 @@ if screen_name:
                 size=34,
             )
             .encode(x="score_weighted", y="label", tooltip=["score_weighted"])
-            .interactive()
         )
 
         plot_misinfoexpose = bar + tick + tick_weight
