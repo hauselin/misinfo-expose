@@ -2,7 +2,7 @@
 
 App: https://misinfo-expose.streamlit.app/
 
-To install libraries in your Python virtual environemnt (run only once):
+To install libraries in your Python virtual environment (run only once):
 
 ```sh
 # the app uses python 3.10.0
