@@ -120,6 +120,8 @@ if screen_name:
 
         img_dem = Image.open("img/dem.png")
         col1.image(img_dem, use_column_width=True)
+        img_rep = Image.open("img/repub.png")
+        col3.image(img_rep, use_column_width=True)
         col2.altair_chart(plot_party, use_container_width=True)
 
         # misinfo exposure
