@@ -232,9 +232,14 @@ if screen_name:
         plot_party.configure_title(fontSize=13)
         col2.altair_chart(plot_party, use_container_width=True)
 
-        st.markdown(
-            f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows:"
-        )
+        if int(data["num_following"]) > 1:
+            st.markdown(
+                f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows:"
+            )
+        else:
+            st.markdown(
+                f"The estimates above are based on this user **{data['twitter_screen_name'].lower()}** follows:"
+            )
         st.json(data["following"])
 
     # st.write(data)
