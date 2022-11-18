@@ -164,16 +164,6 @@ if screen_name:
             )
         )
 
-        tick = (
-            alt.Chart(misinfodata)
-            .mark_tick(
-                color="orange",
-                thickness=3,
-                size=34,
-            )
-            .encode(x="score", y="label", tooltip=["score"])
-        )
-
         misinfodata["score_weighted"] = data[
             "misinfo_exposure_score_weighted_numtweets"
         ]
@@ -187,7 +177,7 @@ if screen_name:
             .encode(x="score_weighted", y="label", tooltip=["score_weighted"])
         )
 
-        plot_misinfoexpose = bar + tick + tick_weight
+        plot_misinfoexpose = bar + tick_weight
         plot_misinfoexpose.configure_title(fontSize=13)
 
         # img_dem = Image.open("img/dem_repub.png")
