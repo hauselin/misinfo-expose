@@ -49,7 +49,9 @@ def percent_delta(misinfo, partisan):
     )
 
 
-#%% data for plotting
+#%% data
+
+df_falsity = pd.read_csv("data/falsity_scores.csv")
 
 partydata = pd.DataFrame(
     {
@@ -238,13 +240,26 @@ if screen_name:
 
         if int(data["num_following"]) > 1:
             st.markdown(
-                f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows:"
+                f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows. Falsity scores for each elite are also shown. "
             )
         else:
             st.markdown(
-                f"The estimates above are based on this user **{data['twitter_screen_name'].lower()}** follows:"
+                f"The estimates above are based on this user **{data['twitter_screen_name'].lower()}** follows. The falsity score for the elite is also shown."
             )
-        st.json(data["following"])
+
+        # show dataframe
+        cols = st.columns([1, 2, 1])
+        df = pd.DataFrame(data["following"])
+        df.columns = ["elite_account"]
+        df = (
+            pd.merge(df, df_falsity, on="elite_account", how="left")
+            .sort_values("falsity_score", ascending=False)[
+                ["elite_account", "falsity_score"]
+            ]
+            .reset_index(drop=True)
+        )
+        df.columns = ["Elite", "Falsity score"]
+        cols[1].dataframe(df)
 
     # st.write(data)
 
