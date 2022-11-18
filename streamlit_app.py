@@ -171,7 +171,7 @@ if screen_name:
             alt.Chart(misinfodata)
             .mark_tick(
                 color="yellow",
-                thickness=2,
+                thickness=5,
                 size=34,
             )
             .encode(x="score_weighted", y="label", tooltip=["score_weighted"])
