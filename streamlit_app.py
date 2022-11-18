@@ -144,11 +144,12 @@ if screen_name:
 
         col1, col2, col3 = st.columns([1, 6, 1])
         misinfodata["score"] = data["misinfo_exposure_score"]
+        axis_labels = "datum.label == 0 ? ['0.0','Low']: datum.label == 1.0 ? ['1.0','High']: datum.label"
         bar = (
             alt.Chart(misinfodata)
             .mark_bar()
             .encode(
-                x=alt.X("value", title=""),
+                x=alt.X("value", title="", axis=alt.Axis(labelExpr=axis_labels)),
                 y=alt.Y("label", title=""),
                 color=alt.Color(
                     field="exposure",
@@ -186,14 +187,6 @@ if screen_name:
         # img_dem = Image.open("img/dem_repub.png")
         # col2.image(img_dem, use_column_width=True)
         col2.altair_chart(plot_misinfoexpose, use_container_width=True)
-        col1.markdown(
-            "<p style='text-align: right; vertical-align: text-bottom;'><b>Low</b></p>",
-            unsafe_allow_html=True,
-        )
-        col3.markdown(
-            "<p style='text-align: left; vertical-align: text-bottom;'><b>High</b></p>",
-            unsafe_allow_html=True,
-        )
 
         # partisanship
         st.markdown(
@@ -210,11 +203,12 @@ if screen_name:
 
         col1, col2, col3 = st.columns([1, 6, 1])
         partydata["score"] = data["partisan_score"]
+        axis_labels = "datum.label == -1.0 ? ['—1.0','Democrat']: datum.label == 1.0 ? ['1.0','Republican']: datum.label"
         bar = (
             alt.Chart(partydata)
             .mark_bar()
             .encode(
-                x=alt.X("value", title=""),
+                x=alt.X("value", title="", axis=alt.Axis(labelExpr=axis_labels)),
                 y=alt.Y("label", title=""),
                 color=alt.Color(
                     field="party",
@@ -237,15 +231,6 @@ if screen_name:
         plot_party = bar + tick
         plot_party.configure_title(fontSize=13)
         col2.altair_chart(plot_party, use_container_width=True)
-        col1, col2, col3, col4 = st.columns([1, 3, 3, 1])
-        col2.markdown(
-            "<p style='text-align: left; vertical-align: super;'><b>Democrat</b></p>",
-            unsafe_allow_html=True,
-        )
-        col3.markdown(
-            "<p style='text-align: right; vertical-align: super;'><b>Republican</b></p>",
-            unsafe_allow_html=True,
-        )
 
         if int(data["num_following"]) > 1:
             st.markdown(
