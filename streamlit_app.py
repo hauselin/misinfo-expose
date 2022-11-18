@@ -81,7 +81,11 @@ st.markdown(
 )
 
 st.markdown(
-    "**Misinformation exposure** scores range from 0 (not exposed to any misinformation) to 1 (exposed to a lot of misinformation). **Partisanship** scores range from -1 (follow mostly Democrats) to 1 (follow mostly Republicans)."
+    "**Misinformation exposure** scores measure how much the politicians and public organizations you follow tend to lie (based on fact-checking their claims by [PolitiFact](https://www.politifact.com/)). These scores go from 0 (none of the fact-checked claims by politicians and public figures you follow are false) to 1 (all of the fact-checked claims by politicians and public organizations you follow are false). "
+)
+
+st.markdown(
+    "**Partisanship** scores measure how much you tend to follow politicians from the left versus right side of the political spectrum. These scores go from -1 (follow only left-leaning accounts) to 1 (follow only right-leaning accounts)."
 )
 
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
