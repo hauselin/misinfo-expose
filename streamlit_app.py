@@ -237,12 +237,12 @@ if screen_name:
         plot_party = bar + tick
         plot_party.configure_title(fontSize=13)
         col2.altair_chart(plot_party, use_container_width=True)
-        col1, col2, col3, col4, col5 = st.columns([1, 1, 4, 1, 1])
+        col1, col2, col3, col4 = st.columns([1, 3, 3, 1])
         col2.markdown(
             "<p style='text-align: left; vertical-align: super;'><b>Democrat</b></p>",
             unsafe_allow_html=True,
         )
-        col4.markdown(
+        col3.markdown(
             "<p style='text-align: right; vertical-align: super;'><b>Republican</b></p>",
             unsafe_allow_html=True,
         )
