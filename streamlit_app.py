@@ -148,7 +148,7 @@ if screen_name:
             alt.Chart(misinfodata)
             .mark_bar()
             .encode(
-                x=alt.X("value", title="Low - High"),
+                x=alt.X("value", title=""),
                 y=alt.Y("label", title=""),
                 color=alt.Color(
                     field="exposure",
@@ -186,6 +186,14 @@ if screen_name:
         # img_dem = Image.open("img/dem_repub.png")
         # col2.image(img_dem, use_column_width=True)
         col2.altair_chart(plot_misinfoexpose, use_container_width=True)
+        col1.markdown(
+            "<p style='text-align: right; vertical-align: text-bottom;'><b>Low</b></p>",
+            unsafe_allow_html=True,
+        )
+        col3.markdown(
+            "<p style='text-align: left; vertical-align: text-bottom;'><b>High</b></p>",
+            unsafe_allow_html=True,
+        )
 
         # partisanship
         st.markdown(
@@ -206,7 +214,7 @@ if screen_name:
             alt.Chart(partydata)
             .mark_bar()
             .encode(
-                x=alt.X("value", title="Democratic - Republican"),
+                x=alt.X("value", title=""),
                 y=alt.Y("label", title=""),
                 color=alt.Color(
                     field="party",
@@ -229,6 +237,14 @@ if screen_name:
         plot_party = bar + tick
         plot_party.configure_title(fontSize=13)
         col2.altair_chart(plot_party, use_container_width=True)
+        col1.markdown(
+            "<p style='text-align: right; vertical-align: text-bottom;'><b>Democrat</b></p>",
+            unsafe_allow_html=True,
+        )
+        col3.markdown(
+            "<p style='text-align: left; vertical-align: text-bottom;'><b>Republican</b></p>",
+            unsafe_allow_html=True,
+        )
 
         if int(data["num_following"]) > 1:
             st.markdown(
