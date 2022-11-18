@@ -114,15 +114,15 @@ if screen_name:
         )
 
         delta = None if np.isnan(percent_delta_misinfo) else f"{percent_delta_misinfo}%"
-        columns = st.columns(3)
-        columns[0].metric(
-            "Exposure",
-            value=data["misinfo_exposure_score"],
-            delta=delta,
-            help="Misinformation exposure score (min/max: 0/1)",
-        )
+        columns = st.columns([1, 2, 1, 1])
+        # columns[0].metric(
+        #     "Exposure",
+        #     value=data["misinfo_exposure_score"],
+        #     delta=delta,
+        #     help="Misinformation exposure score (min/max: 0/1)",
+        # )
         columns[1].metric(
-            "Weighted exposure",
+            "Misinformation exposure",
             value=data["misinfo_exposure_score_weighted_numtweets"],
             help="Misinformation exposure score weighted by number of tweets (min/max: 0/1)",
         )
@@ -142,7 +142,7 @@ if screen_name:
 
         # misinfo exposure
         st.markdown(
-            "<h5 style='text-align: center;'>Exposure to misinformation</h1>",
+            "<h5 style='text-align: center;'>Misinformation exposure</h1>",
             unsafe_allow_html=True,
         )
 
