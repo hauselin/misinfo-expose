@@ -256,11 +256,11 @@ if screen_name:
 
         if int(data["num_following"]) > 1:
             st.markdown(
-                f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows. Falsity scores for each elite are also shown. "
+                f"The estimates above are based on these **{data['num_following']}** users **{data['twitter_screen_name'].lower()}** follows. Falsity scores for the elites are also shown. "
             )
         else:
             st.markdown(
-                f"The estimates above are based on this user **{data['twitter_screen_name'].lower()}** follows. The falsity score for the elite is also shown."
+                f"The estimates above are based on this user **{data['twitter_screen_name'].lower()}** follows. The elite's falsity score is also shown."
             )
 
         # show dataframe of elites and falsity scores
