@@ -209,12 +209,17 @@ if screen_name:
 
         col1, col2, col3 = st.columns([1, 6, 1])
         partydata["score"] = data["partisan_score"]
-        axis_labels = "datum.label == -1.0 ? ['—1.0','Democrat']: datum.label == 1.0 ? ['1.0','Republican']: datum.label"
+        axis_labels = "datum.value == -1.0 ? ['-1.0','Democrat']: datum.value == 1.0 ? ['1.0','Republican']: datum.value == 0.0 ? ['0.0']: ''"
+
         bar = (
             alt.Chart(partydata)
             .mark_bar()
             .encode(
-                x=alt.X("value", title="", axis=alt.Axis(labelExpr=axis_labels)),
+                x=alt.X(
+                    "value",
+                    title="",
+                    axis=alt.Axis(labelExpr=axis_labels),
+                ),
                 y=alt.Y("label", title=""),
                 color=alt.Color(
                     field="party",
