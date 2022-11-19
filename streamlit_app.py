@@ -49,6 +49,14 @@ def percent_delta(misinfo, partisan):
     )
 
 
+def lower_or_higher(delta):
+    if delta[0] == "-":
+        delta = f"{delta} lower than average"
+    else:
+        delta = f"{delta} higher than average"
+    return delta
+
+
 #%% data
 
 df_falsity = pd.read_csv("data/falsity_scores.csv")
@@ -75,6 +83,7 @@ misinfodata = pd.DataFrame(
 #%%
 
 st.set_page_config(page_title="Misinformation exposure")
+
 
 st.markdown("### How much misinformation are you exposed to?")
 
@@ -106,32 +115,29 @@ if screen_name:
     else:
         print(data)
         st.markdown(
-            f"Scores for **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below. You can also see how much (%) the scores deviate from the mean. The vertical lines in the figures show your scores."
+            f"Scores for **{data['twitter_screen_name']}** (ID: {data['twitter_user_id']}) are shown below."
         )
 
-        st.markdown("#### ")
+        st.markdown("##### ")
 
         percent_delta_misinfo, percent_delta_partisan = percent_delta(
             data["misinfo_exposure_score"], data["partisan_score"]
         )
 
         delta = None if np.isnan(percent_delta_misinfo) else f"{percent_delta_misinfo}%"
-        columns = st.columns([1, 2, 1, 1])
-        # columns[0].metric(
-        #     "Exposure",
-        #     value=data["misinfo_exposure_score"],
-        #     delta=delta,
-        #     help="Misinformation exposure score (min/max: 0/1)",
-        # )
-        columns[1].metric(
+        delta = lower_or_higher(delta)
+        columns = st.columns([1, 1])
+        columns[0].metric(
             "Misinformation exposure",
             value=data["misinfo_exposure_score_weighted_numtweets"],
             help="Misinformation exposure score weighted by number of tweets (min/max: 0/1)",
+            delta=delta,
         )
         delta = (
             None if np.isnan(percent_delta_partisan) else f"{percent_delta_partisan}%"
         )
-        columns[2].metric(
+        delta = lower_or_higher(delta)
+        columns[1].metric(
             "Partisanship",
             value=data["partisan_score"],
             delta=delta,
@@ -157,10 +163,7 @@ if screen_name:
             .encode(
                 x=alt.X("value", title="", axis=alt.Axis(labelExpr=axis_labels)),
                 y=alt.Y("label", title=""),
-                color=alt.Color(
-                    field="exposure",
-                    legend=None,
-                ),
+                color=alt.Color(field="exposure", legend=None),
             )
         )
 
@@ -169,19 +172,12 @@ if screen_name:
         ]
         tick_weight = (
             alt.Chart(misinfodata)
-            .mark_tick(
-                color="yellow",
-                thickness=5,
-                size=34,
-            )
+            .mark_tick(color="yellow", thickness=5, size=34)
             .encode(x="score_weighted", y="label", tooltip=["score_weighted"])
         )
 
         plot_misinfoexpose = bar + tick_weight
         plot_misinfoexpose.configure_title(fontSize=13)
-
-        # img_dem = Image.open("img/dem_repub.png")
-        # col2.image(img_dem, use_column_width=True)
         col2.altair_chart(plot_misinfoexpose, use_container_width=True)
 
         # partisanship
@@ -217,11 +213,7 @@ if screen_name:
 
         tick = (
             alt.Chart(partydata)
-            .mark_tick(
-                color="yellow",
-                thickness=5,
-                size=34,
-            )
+            .mark_tick(color="yellow", thickness=5, size=34)
             .encode(x="score", y="label", tooltip=["score"])
         )
         plot_party = bar + tick
@@ -249,7 +241,7 @@ if screen_name:
             .reset_index(drop=True)
         )
         df.columns = ["Elite", "Falsity score"]
-        cols[1].dataframe(df)
+        cols[1].dataframe(df, use_container_width=True)
 
     # st.write(data)
 
