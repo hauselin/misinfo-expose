@@ -224,7 +224,6 @@ if screen_name:
                     legend=None,
                 ),
             )
-            # .properties(title="Partisanship")
         )
 
         tick = (
@@ -245,7 +244,7 @@ if screen_name:
                 f"The estimates above are based on this user **{data['twitter_screen_name'].lower()}** follows. The falsity score for the elite is also shown."
             )
 
-        # show dataframe
+        # show dataframe of elites and falsity scores
         cols = st.columns([1, 2, 1])
         df = pd.DataFrame(data["following"])
         df.columns = ["elite_account"]
