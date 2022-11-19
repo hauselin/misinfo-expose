@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import requests
 import streamlit as st
+from vega_datasets import data as dt1
 
 #%%
 
@@ -162,6 +163,24 @@ if screen_name:
                 unsafe_allow_html=True,
             )
 
+        col1, col2, col3 = st.columns([0.6, 6.4, 1])
+        axis_labels = "''"
+        distr = (
+            alt.Chart(dt1.movies.url)
+            .transform_density(
+                "IMDB_Rating",
+                as_=["IMDB_Rating", "density"],
+            )
+            .mark_area()
+            .encode(
+                x=alt.Y(
+                    "IMDB_Rating:Q", title="", axis=alt.Axis(labelExpr=axis_labels)
+                ),
+                y="density:Q",
+            )
+        )
+        col2.altair_chart(distr, use_container_width=True)
+
         col1, col2, col3 = st.columns([1, 6, 1])
         misinfodata["score"] = data["misinfo_exposure_score"]
         axis_labels = "datum.label == 0 ? ['0.0','Low']: datum.label == 1.0 ? ['1.0','High']: datum.label"
@@ -263,7 +282,7 @@ if screen_name:
         df.columns = ["Elite", "Falsity score"]
         cols[1].dataframe(df, use_container_width=True)
 
-    # st.write(data)
+        # st.write(data)
 
 
 #%%
