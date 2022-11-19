@@ -156,6 +156,12 @@ if screen_name:
             unsafe_allow_html=True,
         )
 
+        if data["misinfo_exposure_score_weighted_numtweets"] is None:
+            st.markdown(
+                "<div style='text-align: center;'>No misinformation exposure score is available for this user.</div><br>",
+                unsafe_allow_html=True,
+            )
+
         col1, col2, col3 = st.columns([1, 6, 1])
         misinfodata["score"] = data["misinfo_exposure_score"]
         axis_labels = "datum.label == 0 ? ['0.0','Low']: datum.label == 1.0 ? ['1.0','High']: datum.label"
@@ -177,8 +183,10 @@ if screen_name:
             .mark_tick(color="yellow", thickness=5, size=34)
             .encode(x="score_weighted", y="label", tooltip=["score_weighted"])
         )
-
-        plot_misinfoexpose = bar + tick_weight
+        if data["misinfo_exposure_score_weighted_numtweets"] is not None:
+            plot_misinfoexpose = bar + tick_weight
+        else:
+            plot_misinfoexpose = bar
         plot_misinfoexpose.configure_title(fontSize=13)
         col2.altair_chart(plot_misinfoexpose, use_container_width=True)
 
@@ -187,6 +195,12 @@ if screen_name:
             "<h5 style='text-align: center;'>Partisanship</h1>",
             unsafe_allow_html=True,
         )
+
+        if data["partisan_score"] is None:
+            st.markdown(
+                "<div style='text-align: center;'>No partisanship score is available for this user.</div><br>",
+                unsafe_allow_html=True,
+            )
 
         st.markdown(
             "<p style='text-align: center; color: grey;'>"
@@ -218,7 +232,7 @@ if screen_name:
             .mark_tick(color="yellow", thickness=5, size=34)
             .encode(x="score", y="label", tooltip=["score"])
         )
-        plot_party = bar + tick
+        plot_party = bar + tick if data["partisan_score"] is not None else bar
         plot_party.configure_title(fontSize=13)
         col2.altair_chart(plot_party, use_container_width=True)
 
