@@ -275,7 +275,8 @@ if screen_name:
             .reset_index(drop=True)
         )
         df.columns = ["Elite", "Falsity score"]
-        cols[1].dataframe(df, use_container_width=True)
+        # https://discuss.streamlit.io/t/how-to-format-float-values-to-2-decimal-place-in-a-dataframe-except-one-column-of-the-dataframe/3619/3
+        cols[1].dataframe(df.style.format(subset=["Falsity score"], formatter="{:.3f}"), use_container_width=True)
 
         # st.write(data)
 
