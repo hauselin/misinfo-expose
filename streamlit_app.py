@@ -163,7 +163,7 @@ if screen_name:
             )
         else:
             st.markdown(
-                "<div style='text-align: center;'>The vertical line is where you are in relation to others.</div>",
+                "<div style='text-align: center;'>The <b><span style='color: grey;'>vertical line</span></b> is where you are in relation to others.</div>",
                 unsafe_allow_html=True,
             )
 
@@ -176,7 +176,7 @@ if screen_name:
         dens = (
             alt.Chart(dt1)
             .transform_density("data", as_=["data", "density"], extent=[0, 1])
-            .mark_area(color="orange", opacity=0.5)
+            .mark_area(color="#58a4b0", opacity=1.0)
             .encode(
                 x=alt.X("data:Q", title="", axis=alt.Axis(labelExpr=axis_labels)),
                 y=alt.Y("density:Q", title="", axis=alt.Axis(labels=False, tickSize=0)),
@@ -189,7 +189,7 @@ if screen_name:
         ]
         rule = (
             alt.Chart(misinfodata)
-            .mark_rule(color="grey", size=3)
+            .mark_rule(color="#d8dbe2", size=3)
             .encode(x="score_weighted:Q", tooltip=["score_weighted"])
         )
 
@@ -247,7 +247,7 @@ if screen_name:
 
         tick = (
             alt.Chart(partydata)
-            .mark_tick(color="yellow", thickness=5, size=34)
+            .mark_tick(color="#91e5f6", thickness=5, size=34)
             .encode(x="score", y="label", tooltip=["score"])
         )
         plot_party = bar + tick if data["partisan_score"] is not None else bar
