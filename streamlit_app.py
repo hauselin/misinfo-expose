@@ -2,13 +2,13 @@
 
 import base64
 from pathlib import Path
-
+from vega_datasets import data as dt1
 import altair as alt
 import numpy as np
 import pandas as pd
 import requests
 import streamlit as st
-from vega_datasets import data as dt1
+
 
 #%%
 
