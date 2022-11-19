@@ -73,3 +73,4 @@ validators==0.20.0
 watchdog==2.1.9
 wcwidth==0.2.5
 zipp==3.10.0
+vega_datasets==0.9.0
