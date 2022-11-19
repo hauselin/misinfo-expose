@@ -50,6 +50,8 @@ def percent_delta(misinfo, partisan):
 
 
 def lower_or_higher(delta):
+    if delta is None:
+        return delta
     if delta[0] == "-":
         delta = f"{delta} lower than average"
     else:
