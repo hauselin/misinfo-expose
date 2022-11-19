@@ -2,7 +2,6 @@
 
 import base64
 from pathlib import Path
-from vega_datasets import data as dt1
 import altair as alt
 import numpy as np
 import pandas as pd
@@ -165,48 +164,39 @@ if screen_name:
 
         col1, col2, col3 = st.columns([0.6, 6.4, 1])
         axis_labels = "''"
-        distr = (
-            alt.Chart(dt1.movies.url)
-            .transform_density(
-                "IMDB_Rating",
-                as_=["IMDB_Rating", "density"],
-            )
-            .mark_area()
-            .encode(
-                x=alt.Y(
-                    "IMDB_Rating:Q", title="", axis=alt.Axis(labelExpr=axis_labels)
-                ),
-                y="density:Q",
-            )
-        )
-        col2.altair_chart(distr, use_container_width=True)
 
         col1, col2, col3 = st.columns([1, 6, 1])
-        misinfodata["score"] = data["misinfo_exposure_score"]
         axis_labels = "datum.label == 0 ? ['0.0','Low']: datum.label == 1.0 ? ['1.0','High']: datum.label"
-        bar = (
-            alt.Chart(misinfodata)
-            .mark_bar()
+        dt1 = pd.DataFrame({"data": np.linspace(0, 1, 101)})
+        dens = (
+            alt.Chart(dt1)
+            .transform_density("data", as_=["data", "density"], extent=[0, 1])
+            .mark_area(color="orange", opacity=0.5)
             .encode(
-                x=alt.X("value", title="", axis=alt.Axis(labelExpr=axis_labels)),
-                y=alt.Y("label", title=""),
-                color=alt.Color(field="exposure", legend=None),
+                x=alt.X("data:Q", title="", axis=alt.Axis(labelExpr=axis_labels)),
+                y=alt.Y("density:Q", title="", axis=alt.Axis(labels=False, tickSize=0)),
             )
         )
 
+        misinfodata["score"] = data["misinfo_exposure_score"]
         misinfodata["score_weighted"] = data[
             "misinfo_exposure_score_weighted_numtweets"
         ]
-        tick_weight = (
+        rule = (
             alt.Chart(misinfodata)
-            .mark_tick(color="yellow", thickness=5, size=34)
-            .encode(x="score_weighted", y="label", tooltip=["score_weighted"])
+            .mark_rule(color="black", size=3)
+            .encode(x="score_weighted:Q", tooltip=["score_weighted"])
         )
+
         if data["misinfo_exposure_score_weighted_numtweets"] is not None:
-            plot_misinfoexpose = bar + tick_weight
+            plot_misinfoexpose = dens + rule
         else:
-            plot_misinfoexpose = bar
-        plot_misinfoexpose.configure_title(fontSize=13)
+            plot_misinfoexpose = dens
+        plot_misinfoexpose = (
+            plot_misinfoexpose.configure_title(fontSize=13)
+            .configure_axis(grid=False, domain=False)
+            .configure_view(strokeWidth=0)
+        )
         col2.altair_chart(plot_misinfoexpose, use_container_width=True)
 
         # partisanship
