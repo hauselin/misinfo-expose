@@ -2,12 +2,12 @@
 
 import base64
 from pathlib import Path
+
 import altair as alt
 import numpy as np
 import pandas as pd
 import requests
 import streamlit as st
-
 
 #%%
 
