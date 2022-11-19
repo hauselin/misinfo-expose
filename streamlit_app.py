@@ -163,7 +163,7 @@ if screen_name:
             )
         else:
             st.markdown(
-                "<div style='text-align: center;'>The vertical line is where you are in relation to others.</div><br>",
+                "<div style='text-align: center;'>The vertical line is where you are in relation to others.</div>",
                 unsafe_allow_html=True,
             )
 
