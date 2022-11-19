@@ -161,6 +161,11 @@ if screen_name:
                 "<div style='text-align: center;'>No misinformation exposure score is available for this user.</div><br>",
                 unsafe_allow_html=True,
             )
+        else:
+            st.markdown(
+                "<div style='text-align: center;'>The vertical line is where you are in relation to others.</div><br>",
+                unsafe_allow_html=True,
+            )
 
         col1, col2, col3 = st.columns([0.6, 6.4, 1])
         axis_labels = "''"
@@ -184,7 +189,7 @@ if screen_name:
         ]
         rule = (
             alt.Chart(misinfodata)
-            .mark_rule(color="black", size=3)
+            .mark_rule(color="grey", size=3)
             .encode(x="score_weighted:Q", tooltip=["score_weighted"])
         )
 
