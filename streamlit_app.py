@@ -102,7 +102,7 @@ st.markdown(
 )
 
 st.markdown(
-    "To get scores programmatically, try our [API](https://github.com/mmosleh/minfo-exposure)."
+    "You can also use our [API](https://github.com/mmosleh/minfo-exposure) to get the scores. Source code for this app is available [here](https://github.com/hauselin/misinfo-expose/tree/main)."
 )
 
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
