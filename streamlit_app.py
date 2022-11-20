@@ -64,6 +64,7 @@ def lower_or_higher(delta):
 df_falsity = pd.read_csv("data/falsity_scores.csv")
 df_misinfo_dist = pd.read_csv("data/dist_simulated.csv")
 
+
 partydata = pd.DataFrame(
     {
         "party": ["Democrat", "Republican"],
@@ -178,10 +179,10 @@ if screen_name:
         axis_labels = "datum.label == 0 ? ['0.0','Low']: datum.label == 1.0 ? ['1.0','High']: datum.label"
         dens = (
             alt.Chart(df_misinfo_dist)
-            .transform_density("data", as_=["data", "density"], extent=[0, 1])
+            .transform_density("value", as_=["value", "density"], extent=[0, 1])
             .mark_area(color="#d8dbe2", opacity=0.3)
             .encode(
-                x=alt.X("data:Q", title="", axis=alt.Axis(labelExpr=axis_labels)),
+                x=alt.X("value:Q", title="", axis=alt.Axis(labelExpr=axis_labels)),
                 y=alt.Y("density:Q", title="", axis=alt.Axis(labels=False, tickSize=0)),
             )
         )
@@ -245,6 +246,7 @@ if screen_name:
                     scale=alt.Scale(range=["#34459d", "#f50e02"], interpolate="hsl"),
                     legend=None,
                 ),
+                tooltip=["party"],
             )
         )
 
