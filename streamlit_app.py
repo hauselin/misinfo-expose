@@ -184,6 +184,7 @@ if screen_name:
             .encode(
                 x=alt.X("value:Q", title="", axis=alt.Axis(labelExpr=axis_labels)),
                 y=alt.Y("density:Q", title="", axis=alt.Axis(labels=False, tickSize=0)),
+                tooltip=["value"],
             )
         )
 
