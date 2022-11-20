@@ -102,9 +102,11 @@ st.markdown(
     "**Partisanship** scores measure how much you tend to follow politicians from the left versus right side of the political spectrum. These scores go from -1 (follow only left-leaning accounts) to 1 (follow only right-leaning accounts)."
 )
 
-screen_name = st.text_input(
-    "Enter your Twitter username or ID to find out. To get scores programmatically, try our [API](https://github.com/mmosleh/minfo-exposure)."
+st.markdown(
+    "To get scores programmatically, try our [API](https://github.com/mmosleh/minfo-exposure)."
 )
+
+screen_name = st.text_input("Enter your Twitter username or ID to find out.")
 
 #%%
 
