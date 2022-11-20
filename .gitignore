@@ -162,3 +162,4 @@ cython_debug/
 
 .streamlit/
 scratch.py
+simulate_dist_data.R
