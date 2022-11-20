@@ -87,7 +87,6 @@ misinfodata = pd.DataFrame(
 
 st.set_page_config(page_title="Misinformation exposure")
 
-
 st.markdown("### How much misinformation are you exposed to?")
 
 st.markdown(
