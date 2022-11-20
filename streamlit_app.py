@@ -62,6 +62,7 @@ def lower_or_higher(delta):
 #%% data
 
 df_falsity = pd.read_csv("data/falsity_scores.csv")
+df_misinfo_dist = pd.read_csv("data/dist_simulated.csv")
 
 partydata = pd.DataFrame(
     {
@@ -101,7 +102,9 @@ st.markdown(
     "**Partisanship** scores measure how much you tend to follow politicians from the left versus right side of the political spectrum. These scores go from -1 (follow only left-leaning accounts) to 1 (follow only right-leaning accounts)."
 )
 
-screen_name = st.text_input("Enter your Twitter username or ID to find out.")
+screen_name = st.text_input(
+    "Enter your Twitter username or ID to find out. To get scores programmatically, try our [API](https://github.com/mmosleh/minfo-exposure)."
+)
 
 #%%
 
@@ -172,9 +175,8 @@ if screen_name:
 
         col1, col2, col3 = st.columns([1, 6, 1])
         axis_labels = "datum.label == 0 ? ['0.0','Low']: datum.label == 1.0 ? ['1.0','High']: datum.label"
-        dt1 = pd.DataFrame({"data": np.linspace(0, 1, 101)})
         dens = (
-            alt.Chart(dt1)
+            alt.Chart(df_misinfo_dist)
             .transform_density("data", as_=["data", "density"], extent=[0, 1])
             .mark_area(color="#d8dbe2", opacity=0.3)
             .encode(
@@ -276,7 +278,10 @@ if screen_name:
         )
         df.columns = ["Elite", "Falsity score"]
         # https://discuss.streamlit.io/t/how-to-format-float-values-to-2-decimal-place-in-a-dataframe-except-one-column-of-the-dataframe/3619/3
-        cols[1].dataframe(df.style.format(subset=["Falsity score"], formatter="{:.3f}"), use_container_width=True)
+        cols[1].dataframe(
+            df.style.format(subset=["Falsity score"], formatter="{:.3f}"),
+            use_container_width=True,
+        )
 
         # st.write(data)
 
