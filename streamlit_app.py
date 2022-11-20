@@ -84,7 +84,7 @@ misinfodata = pd.DataFrame(
 )
 
 
-#%%
+#%% app set up
 
 st.set_page_config(page_title="Misinformation exposure")
 
@@ -98,7 +98,7 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-#%%
+#%% main text
 
 st.markdown("### How much misinformation are you exposed to?")
 
@@ -120,7 +120,7 @@ st.markdown(
 
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
 
-#%%
+#%% results
 
 if screen_name:
     if screen_name[0] == "@":
