@@ -88,6 +88,18 @@ misinfodata = pd.DataFrame(
 
 st.set_page_config(page_title="Misinformation exposure")
 
+# remove footer txt
+# https://discuss.streamlit.io/t/remove-made-with-streamlit-from-bottom-of-app/1370/2
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+#%%
+
 st.markdown("### How much misinformation are you exposed to?")
 
 st.markdown(
