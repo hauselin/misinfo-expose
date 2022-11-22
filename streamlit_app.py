@@ -134,8 +134,10 @@ components.html(
 <script>
 const elements = window.parent.document.querySelectorAll('.stTextInput div[data-baseweb="input"] > div')
 elements[0].style.backgroundColor = 'white'
-const elements2 = window.parent.document.querySelectorAll('.stTextInput input[type="text"]')
-elements2[0].style.color = 'black'
+const textinput = window.parent.document.querySelectorAll('.stTextInput input[type="text"]')
+textinput[0].style.color = 'black'
+const caret = window.parent.document.querySelectorAll('.stTextInput input')
+caret[0].style.caretColor = 'black'
 </script>
 """,
     height=0,
