@@ -128,7 +128,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-screen_name = st.text_input("Enter your Twitter username or ID to find out.")
+screen_name = st.text_input(
+    "**Enter your Twitter username or ID in the textbox below to find out.**"
+)
 components.html(
     """
 <script>
