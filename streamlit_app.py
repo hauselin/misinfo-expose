@@ -237,7 +237,7 @@ if screen_name:
 
         st.markdown(
             "<p style='text-align: center; color: grey;'>"
-            + img_to_html("img/dem_repub_small.png")
+            + img_to_html("img/dem_repub_small_nobg.png")
             + "</p>",
             unsafe_allow_html=True,
         )
