@@ -104,7 +104,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 font = "rockwell"
 st.markdown(
-    f"<h3 style='text-align: center; font-family:{font}'>How much misinformation are you exposed to?</h3>",
+    f"<h3 style='text-align: center; font-family:{font}'>How much <strong style='color:#FF3C38'>misinformation</strong> are you exposed to?</h3>",
     unsafe_allow_html=True,
 )
 
