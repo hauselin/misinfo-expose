@@ -158,7 +158,7 @@ if screen_name:
     else:
         print(data)
         st.markdown(
-            f"<p style='text-align: center;'>Scores for <strong>{data['twitter_screen_name']}</strong> (ID: {data['twitter_user_id']}) are shown below.</p>",
+            f"<h5 style='text-align: center; color:#63D2FF'>Scores for <strong>{data['twitter_screen_name']}</strong> (ID: {data['twitter_user_id']})</h5>",
             unsafe_allow_html=True,
         )
 
