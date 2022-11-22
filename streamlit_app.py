@@ -94,28 +94,36 @@ hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
+            a {color: white;}
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 #%% main text
 
-st.markdown("### 🐥 How much misinformation are you exposed to? 🐥")
-
 st.markdown(
-    "Citation: *[Measuring exposure to misinformation from political elites on Twitter](https://psyarxiv.com/ye3pf). Mosleh, M. & Rand, D.G., Nature Communications, 2022*. See Tweet thread [here](https://twitter.com/_mohsen_m/status/1482072249427505152) 🐦"
+    "<h3 style='text-align: center;'>How much misinformation are you exposed to?</h3>",
+    unsafe_allow_html=True,
 )
 
 st.markdown(
-    "**Misinformation exposure** scores measure how much the politicians and public organizations you follow tend to lie (based on fact-checking their claims by [PolitiFact](https://www.politifact.com/)). These scores go from 0 (none of the fact-checked claims by politicians and public figures you follow are false) to 1 (all of the fact-checked claims by politicians and public organizations you follow are false). "
+    "<p>Citation: <strong><i><a href='https://psyarxiv.com/ye3pf' target='_blank' style='color:#F28F3B'>Measuring exposure to misinformation from political elites on Twitter.</a></i></strong> Mosleh, M. & Rand, D.G., Nature Communications, 2022. See <a href='https://twitter.com/_mohsen_m/status/1482072249427505152' target='_blank' style='color:#F28F3B'>Tweet thread</a>.</p>",
+    unsafe_allow_html=True,
 )
 
 st.markdown(
-    "**Partisanship** scores measure how much you tend to follow politicians from the left versus right side of the political spectrum. These scores go from -1 (follow only left-leaning accounts) to 1 (follow only right-leaning accounts)."
+    "<p><strong style='color:#63D2FF'>Misinformation exposure</strong> scores measure how much the politicians and public organizations you follow tend to lie (based on fact-checking their claims by <a href='https://www.politifact.com/' target='_blank' style='color:#F28F3B'>PolitiFact</a>). These scores go from 0 (none of the fact-checked claims by politicians and public figures you follow are false) to 1 (all of the fact-checked claims by politicians and public organizations you follow are false).</p>",
+    unsafe_allow_html=True,
 )
 
 st.markdown(
-    "You can also use our [API](https://github.com/mmosleh/minfo-exposure) to get the scores. Source code for this app is available [here](https://github.com/hauselin/misinfo-expose/tree/main)."
+    "<p><strong style='color:#63D2FF'>Partisanship</strong> scores measure how much you tend to follow politicians from the left versus right side of the political spectrum. These scores go from -1 (follow only left-leaning accounts) to 1 (follow only right-leaning accounts).",
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    "<p>You can also use our <a href='https://github.com/mmosleh/minfo-exposure' target='_blank' style='color:#F28F3B'>API</a> to get the scores. Source code for this app is available <a href='https://github.com/hauselin/misinfo-expose/tree/main' target='_blank' style='color:#F28F3B'>here</a>.</>",
+    unsafe_allow_html=True,
 )
 
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
