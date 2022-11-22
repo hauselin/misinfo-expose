@@ -96,20 +96,15 @@ hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
-            a {color: white;}
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 #%% main text
 
+font = "rockwell"
 st.markdown(
-    "<h3 style='text-align: center;'>How much misinformation are you exposed to?</h3>",
-    unsafe_allow_html=True,
-)
-
-st.markdown(
-    "<p>Citation: <strong><i><a href='https://psyarxiv.com/ye3pf' target='_blank' style='color:#F28F3B'>Measuring exposure to misinformation from political elites on Twitter.</a></i></strong> Mosleh, M. & Rand, D.G., Nature Communications, 2022. See <a href='https://twitter.com/_mohsen_m/status/1482072249427505152' target='_blank' style='color:#F28F3B'>Tweet thread</a>.</p>",
+    f"<h3 style='text-align: center; font-family:{font}'>How much misinformation are you exposed to?</h3>",
     unsafe_allow_html=True,
 )
 
@@ -125,6 +120,11 @@ st.markdown(
 
 st.markdown(
     "<p>You can also use our <a href='https://github.com/mmosleh/minfo-exposure' target='_blank' style='color:#F28F3B'>API</a> to get the scores. Source code for this app is available <a href='https://github.com/hauselin/misinfo-expose/tree/main' target='_blank' style='color:#F28F3B'>here</a>.</>",
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    "<p>Citation: <strong><i><a href='https://psyarxiv.com/ye3pf' target='_blank' style='color:#F28F3B'>Measuring exposure to misinformation from political elites on Twitter.</a></i></strong> Mosleh, M. & Rand, D.G., Nature Communications, 2022. See <a href='https://twitter.com/_mohsen_m/status/1482072249427505152' target='_blank' style='color:#F28F3B'>Tweet thread</a>.</p>",
     unsafe_allow_html=True,
 )
 
