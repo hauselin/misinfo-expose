@@ -100,7 +100,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 #%% main text
 
-st.markdown("### 🐥 How much misinformation are you exposed to on Twitter? 🐥")
+st.markdown("### 🐥 How much misinformation are you exposed to? 🐥")
 
 st.markdown(
     "Citation: *[Measuring exposure to misinformation from political elites on Twitter](https://psyarxiv.com/ye3pf). Mosleh, M. & Rand, D.G., Nature Communications, 2022*. See Tweet thread [here](https://twitter.com/_mohsen_m/status/1482072249427505152) 🐦"
