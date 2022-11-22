@@ -103,7 +103,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.markdown("### How much misinformation are you exposed to?")
 
 st.markdown(
-    "Citation: *Measuring exposure to misinformation from political elites on Twitter. Mosleh, M. & Rand, D.G., Nature Communications, 2022.*"
+    "Citation: *[Measuring exposure to misinformation from political elites on Twitter](https://psyarxiv.com/ye3pf). Mosleh, M. & Rand, D.G., Nature Communications, 2022*. See Tweet thread [here](https://twitter.com/_mohsen_m/status/1482072249427505152)."
 )
 
 st.markdown(
@@ -151,6 +151,7 @@ if screen_name:
             value=data["misinfo_exposure_score_weighted_numtweets"],
             help="Misinformation exposure score weighted by number of tweets (min/max: 0/1)",
             delta=delta,
+            delta_color="off",
         )
         delta = (
             None if np.isnan(percent_delta_partisan) else f"{percent_delta_partisan}%"
@@ -161,6 +162,7 @@ if screen_name:
             value=data["partisan_score"],
             delta=delta,
             help="Higher scores: more Republican (min/max: -1/1)",
+            delta_color="off",
         )
 
         #%% figures
@@ -192,7 +194,7 @@ if screen_name:
         dens = (
             alt.Chart(df_misinfo_dist)
             .transform_density("value", as_=["value", "density"], extent=[0, 1])
-            .mark_area(color="#d8dbe2", opacity=0.3)
+            .mark_area(color="#d8dbe2", opacity=0.8)
             .encode(
                 x=alt.X("value:Q", title="", axis=alt.Axis(labelExpr=axis_labels)),
                 y=alt.Y("density:Q", title="", axis=alt.Axis(labels=False, tickSize=0)),
@@ -293,6 +295,7 @@ if screen_name:
             .reset_index(drop=True)
         )
         df.columns = ["Elite", "Falsity score"]
+        df.index = df.index + 1
         # https://discuss.streamlit.io/t/how-to-format-float-values-to-2-decimal-place-in-a-dataframe-except-one-column-of-the-dataframe/3619/3
         cols[1].dataframe(
             df.style.format(subset=["Falsity score"], formatter="{:.3f}"),
