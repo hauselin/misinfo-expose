@@ -9,6 +9,8 @@ import pandas as pd
 import requests
 import streamlit as st
 
+import streamlit.components.v1 as components
+
 #%%
 
 
@@ -127,6 +129,18 @@ st.markdown(
 )
 
 screen_name = st.text_input("Enter your Twitter username or ID to find out.")
+components.html(
+    """
+<script>
+const elements = window.parent.document.querySelectorAll('.stTextInput div[data-baseweb="input"] > div')
+elements[0].style.backgroundColor = 'white'
+const elements2 = window.parent.document.querySelectorAll('.stTextInput input[type="text"]')
+elements2[0].style.color = 'black'
+</script>
+""",
+    height=0,
+    width=0,
+)
 
 #%% results
 
