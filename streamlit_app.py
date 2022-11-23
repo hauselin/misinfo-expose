@@ -11,6 +11,7 @@ import streamlit as st
 
 import streamlit.components.v1 as components
 
+
 #%%
 
 
@@ -128,25 +129,26 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+components.html(
+    """
+<script>
+const elements = window.parent.document.querySelectorAll('.stTextInput div[data-baseweb="input"] > div')
+elements[0].style.backgroundColor = 'white'
+const textinput = window.parent.document.querySelectorAll('.stTextInput input[type="text"]')
+textinput[0].style.color = 'black'
+const caret = window.parent.document.querySelectorAll('.stTextInput input')
+caret[0].style.caretColor = 'black'
+console.log('change elements')
+</script>
+""",
+    height=0,
+    width=0,
+)
+
 screen_name = st.text_input(
     "**Enter your Twitter username or ID in the textbox below to find out.**"
 )
-for _ in range(10):
-    components.html(
-        """
-    <script>
-    const elements = window.parent.document.querySelectorAll('.stTextInput div[data-baseweb="input"] > div')
-    elements[0].style.backgroundColor = 'white'
-    const textinput = window.parent.document.querySelectorAll('.stTextInput input[type="text"]')
-    textinput[0].style.color = 'black'
-    const caret = window.parent.document.querySelectorAll('.stTextInput input')
-    caret[0].style.caretColor = 'black'
-    console.log('change elements')
-    </script>
-    """,
-        height=0,
-        width=0,
-    )
+print(f"{screen_name}")
 
 #%% results
 
