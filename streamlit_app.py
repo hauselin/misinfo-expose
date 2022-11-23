@@ -131,7 +131,7 @@ st.markdown(
 )
 
 screen_name = st.text_input(
-    "**Enter your Twitter username or ID in the textbox below to find out.**"
+    "**Enter your Twitter username/ID in the textbox to find out.**"
 )
 print(f"{screen_name}")
 time.sleep(0.05)
