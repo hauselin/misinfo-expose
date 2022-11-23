@@ -292,7 +292,7 @@ if screen_name:
                 y=alt.Y("label", title=""),
                 color=alt.Color(
                     field="party",
-                    scale=alt.Scale(range=["#34459d", "#f50e02"], interpolate="hsl"),
+                    scale=alt.Scale(range=["#36479d", "#bf1e2e"], interpolate="hsl"),
                     legend=None,
                 ),
                 tooltip=["party"],
