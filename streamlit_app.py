@@ -130,9 +130,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-screen_name = st.text_input(
-    "**Enter your Twitter username/ID in the textbox to find out.**"
-)
+screen_name = st.text_input("**Enter your Twitter username/ID below to find out.**")
 print(f"{screen_name}")
 time.sleep(0.05)
 
