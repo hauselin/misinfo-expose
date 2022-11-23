@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import requests
 import streamlit as st
+import time
 
 import streamlit.components.v1 as components
 
@@ -129,6 +130,12 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+screen_name = st.text_input(
+    "**Enter your Twitter username or ID in the textbox below to find out.**"
+)
+print(f"{screen_name}")
+time.sleep(0.05)
+
 components.html(
     """
 <script>
@@ -145,10 +152,6 @@ console.log('change elements')
     width=0,
 )
 
-screen_name = st.text_input(
-    "**Enter your Twitter username or ID in the textbox below to find out.**"
-)
-print(f"{screen_name}")
 
 #%% results
 
