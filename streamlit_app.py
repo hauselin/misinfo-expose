@@ -32,9 +32,7 @@ def img_to_bytes(img_path):
 
 
 def img_to_html(img_path):
-    return (
-        f"<img src='data:image/png;base64,{img_to_bytes(img_path)}' class='img-fluid'>"
-    )
+    return f"<img src='data:image/png;base64,{img_to_bytes(img_path)}' class='img-fluid' height='89'>"
 
 
 def percent_delta(misinfo, partisan):
