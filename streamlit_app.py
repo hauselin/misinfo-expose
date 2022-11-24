@@ -124,7 +124,7 @@ st.markdown(
 )
 
 st.markdown(
-    "<p>Citation: <strong><i><a href='https://psyarxiv.com/ye3pf' target='_blank' style='color:#F28F3B'>Measuring exposure to misinformation from political elites on Twitter.</a></i></strong> Mosleh, M. & Rand, D.G., Nature Communications, 2022. See <a href='https://twitter.com/_mohsen_m/status/1482072249427505152' target='_blank' style='color:#F28F3B'>Tweet thread</a>.</p>",
+    "<p>Citation: <strong><i><a href='https://www.nature.com/articles/s41467-022-34769-6' target='_blank' style='color:#F28F3B'>Measuring exposure to misinformation from political elites on Twitter.</a></i></strong> Mosleh, M. & Rand, D.G., Nature Communications, 2022. See <a href='https://twitter.com/_mohsen_m/status/1482072249427505152' target='_blank' style='color:#F28F3B'>Tweet thread</a>.</p>",
     unsafe_allow_html=True,
 )
 
