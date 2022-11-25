@@ -334,8 +334,7 @@ if screen_name:
 
 components.html(
     """<!-- AddToAny BEGIN -->
-<div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-url="https://misinfo-expose.streamlit.app/" data-a2a-title="How much misinformation are you exposed to?">
-<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="text-align:center;" data-a2a-url="https://misinfo-expose.streamlit.app/" data-a2a-title="How much misinformation are you exposed to?">
 <a class="a2a_button_facebook"></a>
 <a class="a2a_button_twitter"></a>
 <a class="a2a_button_linkedin"></a>
