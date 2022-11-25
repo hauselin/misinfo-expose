@@ -159,7 +159,7 @@ if screen_name:
         data = get_data(screen_name)
 
     if data.get("message") and data["message"].startswith("Cannot find information"):
-        st.warning("Cannot find user. Please check your username or ID.")
+        st.warning("User not found or user does not follow any elite accounts.")
     else:
         print(data)
         st.markdown(
