@@ -332,7 +332,19 @@ if screen_name:
             use_container_width=True,
         )
 
-        # st.write(data)
+components.html(
+    """<!-- AddToAny BEGIN -->
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-url="https://misinfo-expose.streamlit.app/" data-a2a-title="How much misinformation are you exposed to?">
+<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter"></a>
+<a class="a2a_button_linkedin"></a>
+</div>
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+<!-- AddToAny END -->""",
+)
+
+# st.write(data)
 
 
 #%%
